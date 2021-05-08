@@ -1,3 +1,47 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #edefec;
+}
+
 #root {
   font-family: 'Roboto', sans-serif;
+  color: #100c08;
+  padding-top: 20px;
+}
+
+.container {
+  width: 70%;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.ticket__add {
+  width: 150px;
+  margin-left: auto;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #dee2e1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+
+
+.ticket__empty {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hidden {
+  display: none;
 }
