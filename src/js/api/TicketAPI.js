@@ -5,7 +5,7 @@ export default class TicketAPI extends Entity {
   async list(callback) {
     const options = {
       method: 'GET',
-      type: 'allTickets',
+      query: `method=allTickets`,
       callback,
     };
     return createRequest(options);
@@ -14,8 +14,7 @@ export default class TicketAPI extends Entity {
   async get(id, callback) {
     const options = {
       method: 'GET',
-      type: 'ticketById',
-      id: `&id=${id}`,
+      query: `method=ticketById&id=${id}`,
       callback,
     };
     return createRequest(options);
@@ -24,7 +23,7 @@ export default class TicketAPI extends Entity {
   async create(data, callback) {
     const options = {
       method: 'POST',
-      type: 'createTicket',
+      query: `method=createTicket`,
       data,
       callback,
     };
@@ -34,8 +33,7 @@ export default class TicketAPI extends Entity {
   async update(id, data, callback) {
     const options = {
       method: 'POST',
-      type: 'updateById',
-      id: `&id=${id}`,
+      query: `method=updateById&id=${id}`,
       data,
       callback,
     };
@@ -45,8 +43,7 @@ export default class TicketAPI extends Entity {
   async delete(id, callback) {
     const options = {
       method: 'GET',
-      type: 'deleteById',
-      id: `&id=${id}`,
+      query: `method=deleteById&id=${id}`,
       callback,
     };
     return createRequest(options);

@@ -1,6 +1,6 @@
 const createRequest = async (options) => {
   const baseURL = 'https://art-helpdesk.herokuapp.com/';
-  const requestURL = `${baseURL}?method=${options.type}${options.id ? options.id : ''}`;
+  const requestURL = `${baseURL}?${options.query}`;
   const request = await fetch(requestURL, {
     method: options.method,
     body: options.data ? JSON.stringify(options.data) : null,
