@@ -1,12 +1,11 @@
 import templateEngine from './TemplateEngine';
 
-export default class Modal {
-  constructor(container, api) {
+export default class ModalWithForm {
+  constructor(container) {
     if (!(container instanceof HTMLElement)) {
       throw new Error('Передайте HTML элемент');
     }
     this.container = container;
-    this.api = api;
     this.submitSubscribes = [];
   }
 
@@ -14,7 +13,7 @@ export default class Modal {
     return templateEngine.generate({
       type: 'div',
       attr: {
-        class: ['modal'],
+        class: ['modal__form'],
       },
       content: [
         {
@@ -155,9 +154,9 @@ export default class Modal {
       description: formElement.elements.description.value,
     };
     this.modalElement.querySelector('.modal__header').textContent = '';
-    this.clearForm();
     this.close();
-    this.submitSubscribes.forEach((cb) => cb.call(null, data));
+    this.submitSubscribes.forEach((cb) => cb.call(null, data, this.type));
+    this.type = null;
   }
 
   close() {
@@ -167,6 +166,7 @@ export default class Modal {
 
   showModal(type, data) {
     const modalTitle = this.modalElement.querySelector('.modal__header');
+    this.type = type;
     if (type === 'create') {
       modalTitle.textContent = 'Register new ticket';
       this.modalElement.classList.add('active');
@@ -181,7 +181,7 @@ export default class Modal {
   }
 
   get modalElement() {
-    return this.container.querySelector('.modal');
+    return this.container.querySelector('.modal__form');
   }
 
   get formElement() {
@@ -193,21 +193,4 @@ export default class Modal {
     formElement.elements.name.value = '';
     formElement.elements.description.value = '';
   }
-
-  //
-  // get modalBackGroundElement() {
-  //   return this.container.querySelector('.modal-background');
-  // }
-  //
-  // get modalText() {
-  //   return this.container.querySelector('.modal-text').textContent;
-  // }
-  //
-  // set modalText(value) {
-  //   this.container.querySelector('.modal-text').textContent = value;
-  // }
-  //
-  // removeModal() {
-  //   this.modalContainerElement.classList.remove('active');
-  // }
 }

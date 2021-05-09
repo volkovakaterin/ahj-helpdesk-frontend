@@ -4,6 +4,11 @@ body {
   background-color: #edefec;
 }
 
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
 #root {
   font-family: 'Roboto', sans-serif;
   color: #100c08;
@@ -11,7 +16,7 @@ body {
 }
 
 .container {
-  width: 70%;
+  width: 60%;
   min-width: 500px;
   margin-left: auto;
   margin-right: auto;
@@ -20,6 +25,12 @@ body {
   box-sizing: border-box;
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.ticket__header {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #100c08;
 }
 
 .ticket__add {

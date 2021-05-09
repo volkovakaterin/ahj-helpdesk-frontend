@@ -9,6 +9,7 @@ export default class Ticket {
     this.created = created;
     this.editButtonSubscribes = [];
     this.deleteButtonSubscribes = [];
+    this.changeStatusSubscribes = [];
   }
 
   render() {
@@ -33,6 +34,10 @@ export default class Ticket {
               type: 'div',
               attr: {
                 class: ['ticket__status'],
+              },
+              listener: {
+                type: 'click',
+                cb: (event) => this.changeStatus(event),
               },
               content: {
                 type: 'span',
@@ -120,6 +125,15 @@ export default class Ticket {
     if (type === 'delete') {
       this.deleteButtonSubscribes.push(cb);
     }
+    if (type === 'changeStatus') {
+      this.changeStatusSubscribes.push(cb);
+    }
+  }
+
+  changeStatus(event) {
+    const parentElement = event.target.closest('.ticket');
+    const { id } = parentElement.dataset;
+    this.changeStatusSubscribes.forEach((cb) => cb.call(null, id));
   }
 
   editTicket(event) {
@@ -131,8 +145,8 @@ export default class Ticket {
   deleteTicket(event) {
     const parentElement = event.target.closest('.ticket');
     const { id } = parentElement.dataset;
-    this.editButtonSubscribes.forEach((cb) => cb.call(null, id));
-    this.editButtonSubscribes = [];
-    this.deleteButtonSubscribes = [];
+    this.deleteButtonSubscribes.forEach((cb) => cb.call(null, id));
+    // this.editButtonSubscribes = [];
+    // this.deleteButtonSubscribes = [];
   }
 }

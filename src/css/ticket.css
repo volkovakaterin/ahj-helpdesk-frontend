@@ -14,6 +14,7 @@
 
 .ticket__description {
   margin-top: 10px;
+  padding-left: 32px;
 }
 
 .ticket__status {

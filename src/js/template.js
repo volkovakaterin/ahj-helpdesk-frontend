@@ -7,6 +7,19 @@ export const helpDeskAppTemplate = {
     {
       type: 'div',
       attr: {
+        class: ['ticket__header'],
+      },
+      content: {
+        type: 'h1',
+        attr: {
+          class: ['ticket__title'],
+        },
+        content: 'Help Desk',
+      },
+    },
+    {
+      type: 'div',
+      attr: {
         class: ['ticket__add'],
       },
       content: 'Add ticket',
