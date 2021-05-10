@@ -21,11 +21,9 @@ export default class HelpDesk {
     this.subscribeOnEvents();
     this.modalWithForm = new ModalWithForm(this.container);
     this.modalWithForm.bindToDOM();
-    // this.modalWithForm.subscribe(this.obSubmit.bind(this));
 
     this.modalDelete = new ModalDelete(this.container);
     this.modalDelete.bindToDOM();
-    // this.modalDelete.subscribe(this.deleteTicket.bind(this));
 
     this.api.list(this.renderTickets.bind(this));
   }
