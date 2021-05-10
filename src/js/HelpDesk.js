@@ -4,6 +4,7 @@ import { helpDeskAppTemplate, emptyContainer } from './template';
 import TicketAPI from './api/TicketAPI';
 import ModalWithForm from './ModalWithForm';
 import ModalDelete from './ModalDelete';
+import eventBus from './EventBus';
 
 export default class HelpDesk {
   constructor(container) {
@@ -17,16 +18,24 @@ export default class HelpDesk {
   init() {
     this.bindToDOM();
     this.registerEvents();
-
+    this.subscribeOnEvents();
     this.modalWithForm = new ModalWithForm(this.container);
     this.modalWithForm.bindToDOM();
-    this.modalWithForm.subscribe(this.obSubmit.bind(this));
+    // this.modalWithForm.subscribe(this.obSubmit.bind(this));
 
     this.modalDelete = new ModalDelete(this.container);
     this.modalDelete.bindToDOM();
-    this.modalDelete.subscribe(this.deleteTicket.bind(this));
+    // this.modalDelete.subscribe(this.deleteTicket.bind(this));
 
     this.api.list(this.renderTickets.bind(this));
+  }
+
+  subscribeOnEvents() {
+    eventBus.subscribe('submit', this.obSubmit, this);
+    eventBus.subscribe('deleteTicket', this.deleteTicket, this);
+    eventBus.subscribe('edit', this.editTicket, this);
+    eventBus.subscribe('delete', this.showModalDelete, this);
+    eventBus.subscribe('changeStatus', this.changeStatus, this);
   }
 
   bindToDOM() {
@@ -49,15 +58,11 @@ export default class HelpDesk {
     }
     data.forEach((ticket) => {
       const newTicket = new Ticket(ticket);
-      newTicket.subscribe('edit', this.editTicket.bind(this));
-      newTicket.subscribe('delete', this.showModalDelete.bind(this));
-      newTicket.subscribe('changeStatus', this.changeStatus.bind(this));
-
       this.ticketContainer.appendChild(newTicket.render());
     });
   }
 
-  async obSubmit(data, type) {
+  async obSubmit([data, type]) {
     if (type === 'create') {
       await this.api.create(data, (response) => {
         this.renderTickets(response);

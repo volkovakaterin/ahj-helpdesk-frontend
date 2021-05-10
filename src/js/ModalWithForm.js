@@ -1,4 +1,5 @@
 import templateEngine from './TemplateEngine';
+import eventBus from './EventBus';
 
 export default class ModalWithForm {
   constructor(container) {
@@ -6,7 +7,6 @@ export default class ModalWithForm {
       throw new Error('Передайте HTML элемент');
     }
     this.container = container;
-    this.submitSubscribes = [];
   }
 
   render() {
@@ -143,10 +143,6 @@ export default class ModalWithForm {
     this.container.appendChild(this.render());
   }
 
-  subscribe(cb) {
-    this.submitSubscribes.push(cb);
-  }
-
   submit() {
     const { formElement } = this;
     const data = {
@@ -155,7 +151,7 @@ export default class ModalWithForm {
     };
     this.modalElement.querySelector('.modal__header').textContent = '';
     this.close();
-    this.submitSubscribes.forEach((cb) => cb.call(null, data, this.type));
+    eventBus.emit('submit', data, this.type);
     this.type = null;
   }
 

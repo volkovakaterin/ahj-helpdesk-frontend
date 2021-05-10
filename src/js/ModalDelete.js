@@ -1,4 +1,5 @@
 import templateEngine from './TemplateEngine';
+import eventBus from './EventBus';
 
 export default class ModalDelete {
   constructor(container) {
@@ -6,7 +7,6 @@ export default class ModalDelete {
       throw new Error('Передайте HTML элемент');
     }
     this.container = container;
-    this.submitSubscribes = [];
   }
 
   render() {
@@ -83,12 +83,8 @@ export default class ModalDelete {
     this.container.appendChild(this.render());
   }
 
-  subscribe(cb) {
-    this.submitSubscribes.push(cb);
-  }
-
   submit() {
-    this.submitSubscribes.forEach((cb) => cb());
+    eventBus.emit('deleteTicket');
     this.modalElement.classList.remove('active');
   }
 

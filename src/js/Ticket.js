@@ -1,4 +1,5 @@
 import templateEngine from './TemplateEngine';
+import eventBus from './EventBus';
 
 export default class Ticket {
   constructor({ id, name, description, status, created }) {
@@ -7,9 +8,6 @@ export default class Ticket {
     this.description = description;
     this.status = status;
     this.created = created;
-    this.editButtonSubscribes = [];
-    this.deleteButtonSubscribes = [];
-    this.changeStatusSubscribes = [];
   }
 
   render() {
@@ -118,35 +116,21 @@ export default class Ticket {
     descElement.classList.toggle('hidden');
   }
 
-  subscribe(type, cb) {
-    if (type === 'edit') {
-      this.editButtonSubscribes.push(cb);
-    }
-    if (type === 'delete') {
-      this.deleteButtonSubscribes.push(cb);
-    }
-    if (type === 'changeStatus') {
-      this.changeStatusSubscribes.push(cb);
-    }
-  }
-
   changeStatus(event) {
     const parentElement = event.target.closest('.ticket');
     const { id } = parentElement.dataset;
-    this.changeStatusSubscribes.forEach((cb) => cb.call(null, id));
+    eventBus.emit('changeStatus', id);
   }
 
   editTicket(event) {
     const parentElement = event.target.closest('.ticket');
     const { id } = parentElement.dataset;
-    this.editButtonSubscribes.forEach((cb) => cb.call(null, id));
+    eventBus.emit('edit', id);
   }
 
   deleteTicket(event) {
     const parentElement = event.target.closest('.ticket');
     const { id } = parentElement.dataset;
-    this.deleteButtonSubscribes.forEach((cb) => cb.call(null, id));
-    // this.editButtonSubscribes = [];
-    // this.deleteButtonSubscribes = [];
+    eventBus.emit('delete', id);
   }
 }
