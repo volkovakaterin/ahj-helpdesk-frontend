@@ -2,7 +2,7 @@ import Entity from './Entity';
 import createRequest from './createRequest';
 
 export default class TicketAPI extends Entity {
-  async list(callback) {
+  list(callback) {
     const options = {
       method: 'GET',
       query: `method=allTickets`,
@@ -11,7 +11,7 @@ export default class TicketAPI extends Entity {
     return createRequest(options);
   }
 
-  async get(id, callback) {
+  get(id, callback) {
     const options = {
       method: 'GET',
       query: `method=ticketById&id=${id}`,
@@ -20,7 +20,7 @@ export default class TicketAPI extends Entity {
     return createRequest(options);
   }
 
-  async create(data, callback) {
+  create(data, callback) {
     const options = {
       method: 'POST',
       query: `method=createTicket`,
@@ -30,7 +30,7 @@ export default class TicketAPI extends Entity {
     return createRequest(options);
   }
 
-  async update(id, data, callback) {
+  update(id, data, callback) {
     const options = {
       method: 'POST',
       query: `method=updateById&id=${id}`,
@@ -40,7 +40,7 @@ export default class TicketAPI extends Entity {
     return createRequest(options);
   }
 
-  async delete(id, callback) {
+  delete(id, callback) {
     const options = {
       method: 'GET',
       query: `method=deleteById&id=${id}`,
